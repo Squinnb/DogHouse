@@ -1,0 +1,86 @@
+body {
+    background: linear-gradient(
+        100deg,
+        rgb(110, 110, 110) ,
+        whitesmoke 
+    );
+}
+
+/* body, html {
+    height: 100%;
+} */
+
+.dawg {
+    border-radius: 75%;
+    height: 27vh;
+    width: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 12px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dawgDetails {
+    border-radius: 90%;
+    width: 50vw;
+    height: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 15px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.watcherCount {
+    font-size: .5em;
+}
+
+#breedInfo {
+    display: inline;
+}
+
+#miniBar {
+    display: inline;
+}
+
+#addBg {
+    background-image: url('dogImgs/test123.jpg');
+}
+
+#bwbg {
+    background-image: url('dogImgs/test123bw.jpg');
+}
+
+#ddCont {
+    background: linear-gradient(
+        100deg,
+        rgb(110, 110, 110) ,
+        whitesmoke 
+    );
+}
+
+.purchDet {
+    background-color: rgb(201, 201, 201);
+}
+
+#searchDiv {
+    display: none;
+}
+
+#aboutDiv {
+    display: none;
+}
+
+#dogCon {
+    width: 70vw;
+}
+
+#pending {
+    background-color: rgb(201, 201, 201);
+}
+
+#ready {
+    background-color: darksalmon;
+}
+
+#complete {
+    background-color: rgb(142, 142, 142);
+}
+
+.depth {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), 0 12px 8px rgba(0, 0, 0, 0.2);
+}

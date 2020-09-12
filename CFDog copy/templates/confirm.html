@@ -1,0 +1,62 @@
+
+{% extends "layout.html" %}
+
+{% block heading %}
+Purchase Confirmation
+{% endblock %}
+
+{% load mathfilters %}
+
+{% block body %}
+
+    
+
+    {% if cart %}
+      
+        <div id="myDogsContainer" class="container my-5">
+            <h4 class="">My Order</h4> <b>Total: ${{total}}</b>
+            <div class="row border border-dark rounded text-center" id="addBg">
+                {%for item in cart%}
+                    <div class="col-sm-6 col-md-4 col-lg-3 my-2 text-center">
+                        <h4> {{item.item}} </h4>               
+                        <img class="dawg mb-2" src="../static/shopImgs/{{item.item}}.jpg" alt="Loading..."> <br>
+                        <b>  Quantity: {{item.amount}} </b> <br>
+                        <b>  Price: {{item.price|div:item.amount}} </b> <br>
+                    </div>
+                    
+                    {%empty%}
+                        <div>Cart is empty</div>
+                {% endfor%}
+                <div class="col-sm-6 col-md-4 col-lg-3 my-2 text-center" >
+                    <h3>Details</h3>
+                    <table class="border border-dark rounded mt-4 ml-4 m-r-1 purchDet"  >
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                        {% for item in cart%}
+                            <tr>
+                                <td>{{item.item}}</td>
+                                <td>{{item.amount}}</td>
+                                <td>{{item.price|div:item.amount}}</td>
+                            </tr>
+                        {% endfor%}
+                            <tr>
+                                <td></td>
+                                <td>Total Sum:</td>
+                                <td>${{total}}</td>
+                            </tr>
+                    </table>
+
+                    <form action="{% url 'confirm' %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-lg btn-warning mt-3" name="cart" value="{{cart}}" > Purchase </button>
+                    </form>
+
+                </div>
+                <div class="watcherCount mx-2 my-2 text-left"> <b>Dog House is currently only accepting cash payments at the store for now...</b> We will have your "purchased" items together waiting for you at the store! </div>
+            </div>
+        </div>
+    {%endif%}
+{% endblock %}

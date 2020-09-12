@@ -1,0 +1,70 @@
+
+{% extends "layout.html" %}
+
+{% block heading %}
+My orders
+{% endblock %}
+
+{% load mathfilters %}
+
+{% block body %}
+
+    
+
+    {% if orderList %}
+            <div class="text-center">
+                {% for order_dict in orderList %}
+                {% if order_dict.orders %}
+
+                <div id="addBg" class="d-inline-flex flex-column my-2 mx-2 text-center border border-dark rounded" >
+                    <h3 class="text-left ml-1 px-2 pt-1">{{order_dict.header}}</h3>
+                    <div class="watcherCount text-left ml-1 px-1">Details</div>
+                    {% for order in order_dict.orders %}
+                    <table id="{{order.complete}}" class="border border-dark mx-2 my-1"  >
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                        {% for item in order.purchases.all %}
+                            <tr>
+                                <td>{{item.item}}</td>
+                                <td>{{item.amount}}</td>
+                                <td>{{item.price|div:item.amount}}</td>
+                            </tr>
+                        {% endfor%}
+                            <tr>
+                                <td></td>
+                                <td>Total Sum:</td>
+                                <td> <b>${{order.total}}</b> </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Order Status:</td>
+                                <td>{{order.complete}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Date:</td>
+                                <td>{{order.date}}</td>
+                            </tr>
+                    </table>
+                    {% endfor %}
+                 
+
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+                <div class="watcherCount mx-2 my-2 text-left">
+                     <b>Dog House is currently only accepting cash payments at the store for now...</b> We will have your "purchased" items together waiting for you at the store! <br>
+                     <b>Order Status Guide:</b> <br>
+                     'pending' items in order being gathered, <br>
+                     'ready' order is ready to be picked up, <br>
+                     'complete' order has been payed for and picked up. <br>
+                </div>
+    {% else %}
+    <div class="text-center">You have yet to make any purchases.</div>  
+    {%endif%}
+{% endblock %}

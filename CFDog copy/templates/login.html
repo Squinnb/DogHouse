@@ -1,0 +1,29 @@
+
+{% extends "layout.html" %}
+
+{% block heading %}
+Login
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+            </div>
+        
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            
+            <input class="btn btn-info" type="submit" value="Login">
+        </form>
+        <div class="text-right"> Haven't created an account yet? <a href="{% url 'login' %}">Register here.</a> </div>
+    </div>
+    
+
+    
+
+{% endblock %}

@@ -1,0 +1,68 @@
+
+{% extends "layout.html" %}
+
+{% block heading %}
+{{request.user}}'s page
+{% endblock %}
+
+{% load mathfilters %}
+
+{% block body %}
+
+    
+    <div  class="container">
+        <h4 class="">My Dog List</h4>
+        
+        <div class="row border border-dark rounded" id="addBg">
+            {%for dog in myDogList%}
+                <div class="col-xs-9 col-sm-6 col-md-4 my-1 text-center">
+                                     
+                    <img class="dawg mb-2" src="../static/dogImgs/{{dog.name}}.jpg" alt="Loading..."> <br>
+                    <a class="btn btn-outline-dark" href="{% url 'dogDetails' dog.id %}"> <b> {{dog.name}} </b></a>             
+                    
+                </div>
+            {% endfor%}
+            <div class="watcherCount mx-2 my-2"> <b>Upon arrival we will be able to access your dog list provided an email or username. Then you can meet the dogs on your list!</b> </div>
+        
+        </div>
+    </div>
+    {% if cart %}
+      
+        <div class="container my-5">
+            <h4 class="">My Cart</h4> <b>Total: ${{total}}</b> <br>
+            <div class="row border border-dark rounded justify-content-center" id="addBg">
+                {%for item in cart%}
+                    <div class="col-xs-9 col-sm-6 col-md-4 my-2 text-center">
+                        <h4> {{item.item}} </h4>               
+                        <img class="dawg mb-2" src="../static/shopImgs/{{item.item}}.jpg" alt="Loading..."> <br>
+                        <b>  Quantity: {{item.amount}} </b> <br>
+                        <b>  Price: {{item.price|div:item.amount}} </b> <br>
+                        <form action="{% url 'userPage' request.user.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-sm btn-danger" type="submit" name="deleteItem" value="{{item.id}}">Delete</button>
+                        </form>
+                    </div>
+                    {%empty%}
+                        <div>Your cart is currently empty.</div>
+                {% endfor%}
+                {% if cartCount > 0 %}
+
+                <div class="my-2 col-xs-9 col-sm-6 col-md-4 text-center">
+
+                        <svg width="10em" height="10em" viewBox="0 0 16 16" class="bi bi-cart3 mt-5 mx-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                        </svg> <br>
+
+                        <a type="button" href="{% url 'confirm' %}" class="btn btn-dark btn-lg text-center ml-4 mt-3"> 
+                            Checkout
+                        </a> <br>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div>
+
+        </div>
+    {%endif%}
+{% endblock %}

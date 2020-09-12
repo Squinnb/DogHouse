@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+
+
+{% block heading %}
+Dog House Animal Shelter
+{% endblock %}
+
+{% block woof %}addBg{% endblock %}
+
+{% block body %}
+
+<div class="dogCon container my-3 ">
+    
+
+        <div class="border border-dark rounded text-center my-2" id="ddCont">
+            <img class="dawgDetails my-3" src="../static/shopImgs/{{product.item}}.jpg" alt="Loading..."> <br>
+            <div class="d-flex">
+                <div class="text-left px-2 pt-2">
+                    <b>Item:</b> {{product.item}} <br>
+                    <b>Price:</b> ${{product.price}} <br>
+                    <b>Stock:</b> {{product.stock}} <br>
+                </div>
+                <div class="d-flex-inline justify-content-end mt-2">
+                    <form action="{% url 'shopDetails' product.id%}" method="POST">
+                        {% csrf_token %}
+                        {{ intForm }}
+                        <button class="btn btn-sm btn-warning" type="submit" name="product" value="{{product}}">Add to Cart</button>
+                    </form>
+                    
+      
+                </div>
+            </div>
+            <div class="text-left px-2 pb-2">
+                <b>Description:</b> {{product.description}} <br>
+            </div>
+            
+{% endblock %}

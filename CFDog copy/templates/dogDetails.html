@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+
+
+
+
+{% block heading %}
+Dog House Animal Shelter
+{% endblock %}
+
+{% block woof %}addBg{% endblock %}
+
+{% block body %}
+
+<div class="dogCon container my-3 ">
+    
+
+        <div class="border border-dark rounded text-center my-2" id="ddCont">
+            <img class="dawgDetails my-3" src="../static/dogImgs/{{dog.name}}.jpg" alt="Loading..."> <br>
+            <div class="d-flex">
+                <div class="text-left px-2 pt-2">
+                    <b>Name:</b> {{dog.name}} <br>
+                    <b>Breed:</b> {{dog.breed}} <br>
+                    <b>Age:</b> {{dog.age}} <br>
+                </div>
+                <div class="d-flex-inline justify-content-end mt-2">
+                    <form action="{% url 'dogDetails' dog.id %}" method="POST">
+                        {% csrf_token %}    
+
+                        {% if following %}
+                            <button type="submit" id="myDogList" value="{{dog.id}}" class="btn btn-sm btn-danger p-1" >Remove from My Dog List</button>
+                        {% else %}
+                            <button type="submit" id="myDogList" value="{{dog.id}}" class="btn btn-sm btn-warning p-1" >Add to My Dog List</button>
+                        {% endif %}
+                    
+                    </form>
+                    {% if dog.watchers.all|length == 1 %}
+                        <div class="watcherCount">There is {{dog.watchers.all|length}} Person watching this dog.</div>
+                    {% else %}
+                        <div class="watcherCount">There are {{dog.watchers.all|length}} People watching this dog.</div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+            <div class="text-left px-2 pb-2">
+                <b>Profile:</b> {{dog.profile}} <br>
+            </div>
+            
+        </div>
+
+        {% if breedInfo %}
+
+        <div class="border border-dark rounded text-left my-2 px-2 py-2" id="ddCont">
+        <h4 class="border border-light rounded text-left px-2 bg-light mt-2 mb-3" id="breedInfo">Breed Info</h4> <br>
+        <div class="mt-2">
+         <b>Bred For:</b> {{breedInfo.bred_for}} <br>
+         <b>Life Span:</b> {{breedInfo.life_span}} <br>
+         <b>Temperament:</b> {{breedInfo.temperament}} <br>
+        </div>
+        </div>
+
+        {% endif %}
+        
+
+
+
+
+</div>
+
+{% endblock %}

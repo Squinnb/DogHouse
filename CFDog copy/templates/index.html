@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+
+
+
+
+{% block heading %}
+Dog House Animal Shelter
+{% endblock %}
+
+{% block body %}
+
+
+<div class="text-center mb-3" id="searchDiv">
+    <form action="{% url 'dogSearch' %}" method="POST" id="searchForm">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" class="btn btn-sm btn-info px-1">
+    </form>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        {%for dog in page_obj%}
+            <div class="col-sm-6 col-md-4 col-lg-4 my-2 text-center">
+                                 
+                <img class="dawg mb-2" src="../static/dogImgs/{{dog.name}}.jpg" alt="Loading..."> <br>
+                <a class="btn btn-outline-dark text-center mt-2" href="{% url 'dogDetails' dog.id %}"> <b> {{dog.name}} </b></a>             
+                
+            </div>
+        {% endfor%}
+    </div>
+</div>
+
+
+<div class="pagination my-3 mx-1">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a class="btn btn-sm px-1 mx-1 btn-warning" href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-sm mx-1 px-1 btn-warning" href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

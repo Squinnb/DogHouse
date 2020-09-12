@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+Mini Shop
+{% endblock %}
+
+{% block body %}
+
+    
+    <div id="myDogsContainer" class="container mb-5">
+        <h4 >Dog House Mini Shop</h4>
+        <div class="watchersCount">All proceeds go to the caring of our dogs!</div>
+        <div class="row border border-dark rounded text-center" id="addBg">
+            {%for product in products%}
+                <div class="col-sm-6 col-md-4 col-lg-3 my-2 text-center">
+                                     
+                    <img class="dawg mb-2" src="../static/shopImgs/{{product.item}}.jpg" alt="Loading..."> <br>
+                    <a class="btn btn-outline-dark" href="{% url 'shopDetails' product.id %}"> {{product.item}} </a>             
+                    
+                </div>
+            {% endfor%}
+        </div>
+
+    </div>
+    
+
+{% endblock %}

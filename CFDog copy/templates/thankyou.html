@@ -1,0 +1,51 @@
+
+{% extends "layout.html" %}
+
+{% block heading %}
+Thank you for your support!
+{% endblock %}
+
+{% load mathfilters %}
+
+{% block body %}
+
+    
+
+    {% if myOrder %}
+      
+        <div id="myDogsContainer" class="container my-5">
+            <h4 class="">My Order</h4> 
+            <div class="row border border-dark rounded text-center" id="myDogBox">
+                <div class="col-sm-6 my-2 text-center">
+                    <table class="border border-dark purchDet" >
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                        {% for item in myOrder.purchases.all %}
+                            <tr>
+                                <td>{{item.item}}</td>
+                                <td>{{item.amount}}</td>
+                                <td>{{item.price|div:item.amount}}</td>
+                            </tr>
+                        {% endfor%}
+                            <tr>
+                                <td></td>
+                                <td>Total Sum:</td>
+                                <td>${{myOrder.total}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Order Status:</td>
+                                <td>{{myOrder.complete}}</td>
+                            </tr>
+                    </table>
+                    
+                </div>
+                <div class="watcherCount mx-2 my-2 text-left"> <b>You can check the status of your order (whether it's ready to pick up) anytime on your user page!</b> Purchases like this help us maintain and operate the shelter.  </div>
+                
+            </div>
+        </div>
+    {%endif%}
+{% endblock %}
